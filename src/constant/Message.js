@@ -13,6 +13,9 @@ const MESSAGE = Object.freeze({
   eventBadge: "<12월 이벤트 배지>",
   countSuffix: "개",
   priceSuffix: "원",
+  starBadge: "별",
+  treeBadge: "트리",
+  santaBadge: "산타",
 });
 
 export default MESSAGE;
