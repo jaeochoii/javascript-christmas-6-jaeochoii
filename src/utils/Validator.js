@@ -7,7 +7,7 @@ import FindMenu from "./FindMenu.js";
 const Validator = {
   inputDate(input) {
     if (input.replace(/\d/g, "").length > 0) throw new Error(ERROR.date);
-    if (RangeFilter(input)) throw new Error(ERROR.date);
+    if (RangeFilter.date(input)) throw new Error(ERROR.date);
   },
 
   inputOrder(input) {
