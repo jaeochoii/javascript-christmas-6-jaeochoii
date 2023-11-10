@@ -1,5 +1,5 @@
-import MENUS from "../constant/Menus.js";
 import ERROR from "../constant/Error.js";
+import MENUS from "../constant/Menus.js";
 import NUMBER from "../constant/Number.js";
 import RangeFilter from "../utils/RangeFilter.js";
 import FindMenu from "./FindMenu.js";
@@ -17,9 +17,20 @@ const Validator = {
     if (!pattern.test(input)) throw new Error(ERROR.order);
     if (menus.some((menu) => !FindMenu(menu))) throw new Error(ERROR.order);
     if (menus.length !== new Set(menus).size) throw new Error(ERROR.order);
-    if (counts.some((count) => Number(count) < 1)) throw new Error(ERROR.order);
+    if (counts.some((count) => Number(count) < NUMBER.menuCountLimit))
+      throw new Error(ERROR.order);
   },
-  orderMenus(menus) {},
+
+  // menus : 입력받은 메뉴와 개수 객체
+  orderMenus(menus) {
+    const drinks = MENUS.drink.map((drink) => drink.name);
+    if (Object.keys(menus).every((menu) => drinks.includes(menu)))
+      throw new Error(ERROR.orderDrink);
+    const totalCount = Object.values(menus).reduce((acc, count) => {
+      return acc + count;
+    }, 0);
+    if (totalCount > NUMBER.menusMaxCount) throw new Error(ERROR.orderLimit);
+  },
 };
 
 export default Validator;

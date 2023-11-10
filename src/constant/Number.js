@@ -1,4 +1,5 @@
 const NUMBER = Object.freeze({
+  menuCountLimit: 1,
   minDate: 1,
   maxDate: 31,
   dateDiscount: 2_023,
