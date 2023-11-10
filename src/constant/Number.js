@@ -1,4 +1,6 @@
 const NUMBER = Object.freeze({
+  minDate: 1,
+  maxDate: 31,
   dateDiscount: 2_023,
   dDayDefaultDiscount: 1_000,
   dDayPlusDiscount: 100,
