@@ -4,8 +4,6 @@ import BENEFIT_RESULT from "../constant/BenefitResult.js";
 import FormatCurrency from "../utils/FormatCurrency.js";
 import RangeFilter from "../utils/RangeFilter.js";
 
-// 입력값이 없다면 없음으로 출력하는 기능 추후에 생성
-
 const OutputView = {
   printIntro() {
     Console.print(MESSAGE.intro);
@@ -30,20 +28,24 @@ const OutputView = {
 
   printGiveawayMenus(count) {
     Console.print(MESSAGE.giveawayMenu);
-    Console.print(`${MESSAGE.champagne} ${count}${MESSAGE.countSuffix}`);
+    count === 0
+      ? Console.print(`${MESSAGE.none}`)
+      : Console.print(`${MESSAGE.champagne} ${count}${MESSAGE.countSuffix}`);
   },
 
   printBenefitList(discountList) {
     Console.print(MESSAGE.benefitList);
-    BENEFIT_RESULT.forEach((benefit, index) => {
-      if (discountList[index] !== 0) {
-        Console.print(
-          `${benefit} ${MESSAGE.benefit}${FormatCurrency(discountList[index])}${
-            MESSAGE.priceSuffix
-          }`
-        );
-      }
-    });
+    discountList.every((count) => count === 0)
+      ? Console.print(MESSAGE.none)
+      : BENEFIT_RESULT.forEach((benefit, index) => {
+          if (discountList[index] !== 0) {
+            Console.print(
+              `${benefit} ${MESSAGE.benefit}${FormatCurrency(
+                discountList[index]
+              )}${MESSAGE.priceSuffix}`
+            );
+          }
+        });
   },
 
   printBenefitAccount(cost) {
@@ -60,7 +62,9 @@ const OutputView = {
 
   printBadge(cost) {
     Console.print(MESSAGE.eventBadge);
-    Console.print(`${RangeFilter.badge(cost)}`);
+    RangeFilter.badge(cost)
+      ? Console.print(`${RangeFilter.badge(cost)}`)
+      : Console.print(MESSAGE.none);
   },
 };
 
