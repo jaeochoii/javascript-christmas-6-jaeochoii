@@ -18,6 +18,7 @@ const MESSAGE = Object.freeze({
   santaBadge: "산타",
   champagne: "샴페인",
   benefit: "-",
+  none: "없음",
 });
 
 export default MESSAGE;

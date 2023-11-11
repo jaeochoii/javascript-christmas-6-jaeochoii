@@ -7,6 +7,7 @@ const RangeFilter = {
   },
 
   badge(cost) {
+    if (cost < NUMBER.starBenefit) return 0;
     if (cost >= NUMBER.starBenefit && cost < NUMBER.treeBenefit)
       return MESSAGE.starBadge;
     if (cost >= NUMBER.treeBenefit && cost < NUMBER.santaBenefit)
