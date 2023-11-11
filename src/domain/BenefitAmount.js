@@ -9,11 +9,16 @@ class BenefitAmount {
   constructor(menus, benefitList, totalAmount) {
     this.#benefitList = benefitList;
     this.#benefitAmount = [];
-    this.#benefitAmount[4] = totalAmount;
+    this.#calculateIsGiveaway(totalAmount);
     this.#calculateDDayAmount();
     this.#benefitList[1] === 1
       ? this.#calculateWeekendAmount(menus)
       : this.#calculateWeekAmount(menus);
+  }
+  #calculateIsGiveaway(cost) {
+    cost >= NUMBER.giveawayStandard
+      ? (this.#benefitAmount[4] = NUMBER.champagne)
+      : (this.#benefitAmount[4] = 0);
   }
 
   #calculateDDayAmount() {
