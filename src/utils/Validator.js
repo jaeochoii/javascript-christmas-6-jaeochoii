@@ -1,5 +1,5 @@
 import ERROR from "../constant/Error.js";
-import MENUS from "../constant/Menus.js";
+import MENU from "../constant/Menu.js";
 import NUMBER from "../constant/Number.js";
 import RangeFilter from "../utils/RangeFilter.js";
 import FindMenu from "./FindMenu.js";
@@ -23,7 +23,7 @@ const Validator = {
 
   // menus : 입력받은 메뉴와 개수 객체
   orderMenus(menus) {
-    const drinks = MENUS.drink.map((drink) => drink.name);
+    const drinks = MENU.drink.map((drink) => drink.name);
     if (Object.keys(menus).every((menu) => drinks.includes(menu)))
       throw new Error(ERROR.orderDrink);
     const totalCount = Object.values(menus).reduce((acc, count) => {

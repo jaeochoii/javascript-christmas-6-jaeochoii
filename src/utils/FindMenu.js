@@ -1,7 +1,7 @@
-import MENUS from "../constant/Menus.js";
+import MENU from "../constant/Menu.js";
 
 function FindMenu(input) {
-  return Object.values(MENUS)
+  return Object.values(MENU)
     .flat()
     .some((menu) => menu.name === input);
 }

@@ -1,6 +1,6 @@
 import Validator from "../utils/Validator.js";
 
-class OrderedMenus {
+class Menus {
   #menus;
 
   constructor(menus) {
@@ -9,16 +9,16 @@ class OrderedMenus {
       const [name, count] = menu.split("-");
       this.#menus[name] = Number(count);
     });
-    this.#validateOrderedMenus(this.#menus);
+    this.#validateMenus(this.#menus);
   }
 
-  #validateOrderedMenus(menus) {
+  #validateMenus(menus) {
     Validator.orderMenus(menus);
   }
 
-  getOrderedMenus() {
+  getMenus() {
     return this.#menus;
   }
 }
 
-export default OrderedMenus;
+export default Menus;
