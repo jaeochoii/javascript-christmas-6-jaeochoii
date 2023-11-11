@@ -17,6 +17,7 @@ const NUMBER = Object.freeze({
   satRemainder: 2,
   specialRemainder: 3,
   christmas: 25,
+  champagne: 25_000,
 });
 
 export default NUMBER;
