@@ -1,7 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import MESSAGE from "../constant/Message.js";
 import BENEFIT_RESULT from "../constant/BenefitResult.js";
-import FormatCurrency from "../utils/FormatCurrency.js";
 import RangeFilter from "../utils/RangeFilter.js";
 
 const OutputView = {
@@ -24,7 +23,7 @@ const OutputView = {
 
   printBeforeDiscount(cost) {
     Console.print(MESSAGE.beforeDiscount);
-    Console.print(`${FormatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(`${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`);
     Console.print(MESSAGE.line);
   },
 
@@ -43,7 +42,7 @@ const OutputView = {
       : BENEFIT_RESULT.forEach((benefit, index) => {
           if (discountList[index] !== 0) {
             Console.print(
-              `${benefit} ${MESSAGE.benefit}${FormatCurrency(
+              `${benefit} ${MESSAGE.benefit}${this.formatCurrency(
                 discountList[index]
               )}${MESSAGE.priceSuffix}`
             );
@@ -55,14 +54,14 @@ const OutputView = {
   printBenefitAccount(cost) {
     Console.print(MESSAGE.benefitAccount);
     Console.print(
-      `${MESSAGE.benefit}${FormatCurrency(cost)}${MESSAGE.priceSuffix}`
+      `${MESSAGE.benefit}${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`
     );
     Console.print(MESSAGE.line);
   },
 
   printAfterDiscount(cost) {
     Console.print(MESSAGE.afterDiscount);
-    Console.print(`${FormatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(`${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`);
     Console.print(MESSAGE.line);
   },
 
@@ -71,6 +70,10 @@ const OutputView = {
     RangeFilter.badge(cost)
       ? Console.print(`${RangeFilter.badge(cost)}`)
       : Console.print(MESSAGE.none);
+  },
+
+  formatCurrency(cost) {
+    return String(cost).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },
 };
 
