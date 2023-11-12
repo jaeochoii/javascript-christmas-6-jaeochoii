@@ -6,6 +6,7 @@ import BenefitAmount from "../domain/BenefitAmount.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import NUMBER from "../constant/Number.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class EventController {
   #date;
@@ -18,14 +19,24 @@ class EventController {
 
   async playEvent() {
     OutputView.printIntro();
-    await this.inputVisitDate();
+    try {
+      await this.inputVisitDate();
+    } catch (error) {
+      Console.print(error.message);
+      await this.inputVisitDate();
+    }
   }
 
   async inputVisitDate() {
     const date = await InputView.readDate();
     this.#date = new Date(date).getDate();
     this.#event = new Event(this.#date);
-    await this.inputMenus();
+    try {
+      await this.inputMenus();
+    } catch (error) {
+      Console.print(error.message);
+      await this.inputMenus();
+    }
   }
 
   async inputMenus() {
