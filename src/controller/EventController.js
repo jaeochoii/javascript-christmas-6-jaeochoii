@@ -19,11 +19,15 @@ class EventController {
 
   async playEvent() {
     OutputView.printIntro();
+    await this.handleDate();
+  }
+
+  async handleDate() {
     try {
       await this.inputVisitDate();
     } catch (error) {
       Console.print(error.message);
-      await this.inputVisitDate();
+      await this.handleDate();
     }
   }
 
@@ -31,11 +35,15 @@ class EventController {
     const date = await InputView.readDate();
     this.#date = new Date(date).getDate();
     this.#event = new Event(this.#date);
+    await this.handleMenus();
+  }
+
+  async handleMenus() {
     try {
       await this.inputMenus();
     } catch (error) {
       Console.print(error.message);
-      await this.inputMenus();
+      await this.handleMenus();
     }
   }
 
