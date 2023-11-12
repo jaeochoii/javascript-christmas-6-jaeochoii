@@ -4,19 +4,21 @@ import NUMBER from "../constant/Number.js";
 class BenefitAmount {
   #benefitList;
   #benefitAmount;
+  #totalAmount;
 
   // menus: 객체
   constructor(menus, benefitList, totalAmount) {
     this.#benefitList = benefitList;
+    this.#totalAmount = totalAmount;
     this.#benefitAmount = [];
-    this.#calculateIsGiveaway(totalAmount);
+    this.#calculateGiveaway(totalAmount);
     this.#calculateDDayAmount();
     this.#benefitList[1] === 1
       ? this.#calculateWeekendAmount(menus)
       : this.#calculateWeekAmount(menus);
   }
 
-  #calculateIsGiveaway(cost) {
+  #calculateGiveaway(cost) {
     cost >= NUMBER.giveawayStandard
       ? (this.#benefitAmount[4] = NUMBER.champagne)
       : (this.#benefitAmount[4] = 0);
@@ -57,11 +59,12 @@ class BenefitAmount {
   }
 
   getBenefitList() {
+    if (this.#totalAmount < NUMBER.benefitStandard) return new Array(5).fill(0);
     return this.#benefitAmount;
   }
 
   getBenefitAmount() {
-    return this.#benefitAmount.reduce((acc, cost) => {
+    return this.getBenefitList().reduce((acc, cost) => {
       return acc + cost;
     }, 0);
   }
