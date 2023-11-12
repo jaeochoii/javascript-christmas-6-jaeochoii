@@ -25,4 +25,11 @@ describe("OrderedMenus 클래스 단위 기능 테스트", () => {
       new Menus(inputMenus);
     }).toThrow("[ERROR]");
   });
+
+  test("입력한 메뉴가 메뉴판에 없는 경우를 확인", () => {
+    const inputMenus = "안심스테이크-1,초코케이크-2";
+    expect(() => {
+      new Menus(inputMenus);
+    }).toThrow("[ERROR]");
+  });
 });

@@ -34,16 +34,6 @@ describe("입력값 유효성 검사 테스트", () => {
     });
   });
 
-  test("입력한 메뉴와 개수가 메뉴판에 없는 경우를 확인", () => {
-    const inputMenus = ["스테이크-1", "티본스테이크-1,사이다-1"];
-
-    inputMenus.forEach((menu) => {
-      expect(() => {
-        Validator.inputOrder(menu);
-      }).toThrow();
-    });
-  });
-
   test("입력한 메뉴가 중복된 경우를 확인", () => {
     const inputMenus = [
       "티본스테이크-1,티본스테이크-2",
