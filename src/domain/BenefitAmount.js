@@ -15,6 +15,7 @@ class BenefitAmount {
       ? this.#calculateWeekendAmount(menus)
       : this.#calculateWeekAmount(menus);
   }
+
   #calculateIsGiveaway(cost) {
     cost >= NUMBER.giveawayStandard
       ? (this.#benefitAmount[4] = NUMBER.champagne)
@@ -22,10 +23,11 @@ class BenefitAmount {
   }
 
   #calculateDDayAmount() {
-    const benefitAmount =
-      NUMBER.dDayDefaultDiscount +
-      (this.#benefitList[0] - 1) * NUMBER.dDayPlusDiscount;
-    this.#benefitAmount[0] = benefitAmount;
+    this.#benefitList[0] <= NUMBER.christmas
+      ? (this.#benefitAmount[0] =
+          NUMBER.dDayDefaultDiscount +
+          (this.#benefitList[0] - 1) * NUMBER.dDayPlusDiscount)
+      : (this.#benefitAmount[0] = 0);
   }
 
   #calculateWeekendAmount(menus) {
