@@ -19,11 +19,13 @@ const OutputView = {
     for (const [menu, count] of Object.entries(menus)) {
       Console.print(`${menu} ${count}${MESSAGE.countSuffix}`);
     }
+    Console.print(MESSAGE.line);
   },
 
   printBeforeDiscount(cost) {
     Console.print(MESSAGE.beforeDiscount);
     Console.print(`${FormatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(MESSAGE.line);
   },
 
   printGiveawayMenus(count) {
@@ -31,6 +33,7 @@ const OutputView = {
     count === 0
       ? Console.print(`${MESSAGE.none}`)
       : Console.print(`${MESSAGE.champagne} ${count}${MESSAGE.countSuffix}`);
+    Console.print(MESSAGE.line);
   },
 
   printBenefitList(discountList) {
@@ -46,6 +49,7 @@ const OutputView = {
             );
           }
         });
+    Console.print(MESSAGE.line);
   },
 
   printBenefitAccount(cost) {
@@ -53,11 +57,13 @@ const OutputView = {
     Console.print(
       `${MESSAGE.benefit}${FormatCurrency(cost)}${MESSAGE.priceSuffix}`
     );
+    Console.print(MESSAGE.line);
   },
 
   printAfterDiscount(cost) {
     Console.print(MESSAGE.afterDiscount);
     Console.print(`${FormatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(MESSAGE.line);
   },
 
   printBadge(cost) {
