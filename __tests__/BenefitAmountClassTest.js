@@ -56,6 +56,17 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     ).toEqual(answer);
   });
 
+  test("Event 클래스로부터 얻은 혜택 내역을 기반, 총 금액이 1만원이 넘지 않는 경우를 확인", () => {
+    const menus = { 티본스테이크: 2, 초코케이크: 1, 제로콜라: 1 };
+    const benefitList = [13, 0, 1, 1, 0];
+    const totalAmount = 3000;
+    const answer = [0, 0, 0, 0, 0];
+
+    expect(
+      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
+    ).toEqual(answer);
+  });
+
   test("Event 클래스로부터 얻은 혜택 내역을 기반으로 총 혜택 금액 확인", () => {
     const menus = { 티본스테이크: 2, 초코케이크: 1, 제로콜라: 1 };
     const benefitList = [13, 0, 1, 1, 0];
