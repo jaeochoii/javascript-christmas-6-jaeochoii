@@ -2,42 +2,39 @@ import Date from "./Date.js";
 import NUMBER from "../constant/Number.js";
 
 class Event {
-  #event;
+  #date;
+  #eventList;
 
   constructor(date) {
-    this.#event = new Array(5).fill(0);
-    this.#dDayHandler(new Date(date).getDate());
+    this.#date = new Date(date);
+    this.#eventList = new Array(5).fill(0);
+    this.#dDayHandler();
   }
 
-  #dDayHandler(date) {
-    this.#event[0] += date;
-    this.#isWeekend(date);
-  }
-
-  #isWeekend(date) {
-    date % NUMBER.dateLength === NUMBER.friRemainder ||
-    date % NUMBER.dateLength === NUMBER.satRemainder
+  #dDayHandler() {
+    this.#eventList[0] += this.#date.getDate();
+    this.#date.isDateWeekend()
       ? this.#weekendHandler()
-      : this.#weekHandler(date);
+      : this.#weekHandler(this.#date.getDate());
   }
 
   #weekendHandler() {
-    this.#event[1] += 1;
+    this.#eventList[1] += 1;
     this.getEvent();
   }
 
   #weekHandler(date) {
-    this.#event[2] += 1;
+    this.#eventList[2] += 1;
     if (
       date % NUMBER.dateLength === NUMBER.specialRemainder ||
       date === NUMBER.christmas
     )
-      this.#event[3] += 1;
+      this.#eventList[3] += 1;
     this.getEvent();
   }
 
   getEvent() {
-    return this.#event;
+    return this.#eventList;
   }
 }
 
