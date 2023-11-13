@@ -1,4 +1,4 @@
-import NUMBER from "../constant/Number";
+import NUMBER from "../constant/Number.js";
 
 class Date {
   #date;
