@@ -39,15 +39,7 @@ const OutputView = {
     Console.print(MESSAGE.benefitList);
     discountList.every((count) => count === 0)
       ? Console.print(MESSAGE.none)
-      : BENEFIT_RESULT.forEach((benefit, index) => {
-          if (discountList[index] !== 0) {
-            Console.print(
-              `${benefit} ${MESSAGE.benefit}${this.formatCurrency(
-                discountList[index]
-              )}${MESSAGE.priceSuffix}`
-            );
-          }
-        });
+      : this.processPrintBenefit(discountList);
     Console.print(MESSAGE.line);
   },
 
@@ -74,6 +66,18 @@ const OutputView = {
 
   formatCurrency(cost) {
     return String(cost).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  },
+
+  processPrintBenefit(discountList) {
+    BENEFIT_RESULT.forEach((benefit, index) => {
+      if (discountList[index] !== 0) {
+        Console.print(
+          `${benefit} ${MESSAGE.benefit}${this.formatCurrency(
+            discountList[index]
+          )}${MESSAGE.priceSuffix}`
+        );
+      }
+    });
   },
 };
 
