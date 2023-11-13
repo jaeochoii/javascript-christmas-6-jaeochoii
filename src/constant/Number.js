@@ -25,11 +25,11 @@ const NUMBER = Object.freeze({
   santaBenefit: 20_000,
 
   benefitListLength: 5,
-  dDayEventIndex: 0,
-  weekendEventIndex: 1,
-  weekEventIndex: 2,
-  specialEventIndex: 3,
-  giveawayEventIndex: 4,
+  dDayIndex: 0,
+  weekendIndex: 1,
+  weekIndex: 2,
+  specialIndex: 3,
+  giveawayIndex: 4,
 });
 
 export default NUMBER;
