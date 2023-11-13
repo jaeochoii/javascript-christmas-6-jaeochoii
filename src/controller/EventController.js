@@ -8,18 +8,17 @@ import OutputView from "../view/OutputView.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class EventController {
-  #date;
-  #event;
-  #menus;
-
   constructor() {}
 
   async playEvent() {
     OutputView.printIntro();
-    this.#date = new Date(await this.inputVisitDate()).getDate();
-    this.#event = new Event(this.#date);
-    this.#menus = new Menus(await this.inputMenus()).getMenus();
-    this.displayPreview();
+    const date = new Date(await this.inputVisitDate()).getDate();
+    const event = new Event(date);
+    const menus = new Menus(await this.inputMenus()).getMenus();
+    const totalAmount = new TotalAmount(menus);
+    OutputView.printPreview(date);
+    this.displayOrderedMenus({ date, menus, totalAmount });
+    this.displayBenefit({ menus, event, totalAmount });
   }
 
   async inputVisitDate() {
@@ -42,22 +41,31 @@ class EventController {
     }
   }
 
-  displayPreview() {
-    OutputView.printPreview(this.#date);
-    OutputView.printOrderMenus(this.#menus);
-    const totalAmount = new TotalAmount(this.#menus);
+  displayOrderedMenus({ date, menus, totalAmount }) {
+    OutputView.printPreview(date);
+    OutputView.printOrderMenus(menus);
     OutputView.printBeforeDiscount(totalAmount.getTotalAmount());
     OutputView.printGiveawayMenus(totalAmount.getGiveawayCount());
-    const benefit = new BenefitAmount({
-      menus: this.#menus,
-      benefitList: this.#event.getEvent(),
-      totalAmount: totalAmount,
+  }
+
+  displayBenefit({ menus, event, totalAmount }) {
+    const benefit = this.createBenefitObject({ menus, event, totalAmount });
+    const benefitList = benefit.getBenefitList();
+    const benefitAmount = benefit.getBenefitAmount();
+    const costAfterDiscount = totalAmount.getTotalAmount() - benefitAmount;
+
+    OutputView.printBenefitList(benefitList);
+    OutputView.printBenefitAccount(benefitAmount);
+    OutputView.printAfterDiscount(costAfterDiscount);
+    OutputView.printBadge(benefitAmount);
+  }
+
+  createBenefitObject({ menus, event, totalAmount }) {
+    return new BenefitAmount({
+      menus,
+      benefitList: event.getEvent(),
+      totalAmount,
     });
-    OutputView.printBenefitList(benefit.getBenefitList());
-    OutputView.printBenefitAccount(benefit.getBenefitAmount());
-    const cost = totalAmount.getTotalAmount() - benefit.getBenefitAmount();
-    OutputView.printAfterDiscount(cost);
-    OutputView.printBadge(benefit.getBenefitAmount());
   }
 }
 
