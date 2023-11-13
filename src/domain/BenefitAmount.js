@@ -13,28 +13,29 @@ class BenefitAmount {
     this.#benefitAmount = [];
     this.#calculateGiveaway(totalAmount);
     this.#calculateDDayAmount();
-    this.#benefitList[1] === 1
+    this.#benefitList[NUMBER.weekendEventIndex] === 1
       ? this.#calculateWeekendAmount(menus)
       : this.#calculateWeekAmount(menus);
   }
 
   #calculateGiveaway(cost) {
     cost >= NUMBER.giveawayStandard
-      ? (this.#benefitAmount[4] = NUMBER.champagne)
-      : (this.#benefitAmount[4] = 0);
+      ? (this.#benefitAmount[NUMBER.giveawayEventIndex] = NUMBER.champagne)
+      : (this.#benefitAmount[NUMBER.giveawayEventIndex] = 0);
   }
 
   #calculateDDayAmount() {
-    this.#benefitList[0] <= NUMBER.christmas
-      ? (this.#benefitAmount[0] =
+    this.#benefitList[NUMBER.dDayEventIndex] <= NUMBER.christmas
+      ? (this.#benefitAmount[NUMBER.dDayEventIndex] =
           NUMBER.dDayDefaultDiscount +
-          (this.#benefitList[0] - 1) * NUMBER.dDayPlusDiscount)
-      : (this.#benefitAmount[0] = 0);
+          (this.#benefitList[NUMBER.dDayEventIndex] - 1) *
+            NUMBER.dDayPlusDiscount)
+      : (this.#benefitAmount[NUMBER.dDayEventIndex] = 0);
   }
 
   #calculateWeekendAmount(menus) {
-    this.#benefitAmount[2] = 0;
-    this.#benefitAmount[3] = 0;
+    this.#benefitAmount[NUMBER.weekEventIndex] = 0;
+    this.#benefitAmount[NUMBER.specialEventIndex] = 0;
     const benefitAmount = Object.keys(menus).reduce((acc, order) => {
       if (MENU.main.some((menu) => menu.name === order)) {
         return acc + menus[order];
@@ -45,21 +46,24 @@ class BenefitAmount {
   }
 
   #calculateWeekAmount(menus) {
-    this.#benefitAmount[1] = 0;
+    this.#benefitAmount[NUMBER.weekendEventIndex] = 0;
     const benefitAmount = Object.keys(menus).reduce((acc, order) => {
       if (MENU.dessert.some((menu) => menu.name === order)) {
         return acc + menus[order];
       }
       return acc;
     }, 0);
-    this.#benefitAmount[2] = NUMBER.dateDiscount * benefitAmount;
-    this.#benefitList[3] === 0
-      ? (this.#benefitAmount[3] = 0)
-      : (this.#benefitAmount[3] = NUMBER.specialDiscount);
+    this.#benefitAmount[NUMBER.weekEventIndex] =
+      NUMBER.dateDiscount * benefitAmount;
+    this.#benefitList[NUMBER.specialEventIndex] === 0
+      ? (this.#benefitAmount[NUMBER.specialEventIndex] = 0)
+      : (this.#benefitAmount[NUMBER.specialEventIndex] =
+          NUMBER.specialDiscount);
   }
 
   getBenefitList() {
-    if (this.#totalAmount < NUMBER.benefitStandard) return new Array(5).fill(0);
+    if (this.#totalAmount < NUMBER.benefitStandard)
+      return new Array(NUMBER.benefitListLength).fill(0);
     return this.#benefitAmount;
   }
 

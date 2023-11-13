@@ -7,29 +7,29 @@ class Event {
 
   constructor(date) {
     this.#date = new Date(date);
-    this.#eventList = new Array(5).fill(0);
+    this.#eventList = new Array(NUMBER.benefitListLength).fill(0);
     this.#dDayHandler();
   }
 
   #dDayHandler() {
-    this.#eventList[0] += this.#date.getDate();
+    this.#eventList[NUMBER.dDayEventIndex] += this.#date.getDate();
     this.#date.isDateWeekend()
       ? this.#weekendHandler()
       : this.#weekHandler(this.#date.getDate());
   }
 
   #weekendHandler() {
-    this.#eventList[1] += 1;
+    this.#eventList[NUMBER.weekendEventIndex] += 1;
     this.getEvent();
   }
 
   #weekHandler(date) {
-    this.#eventList[2] += 1;
+    this.#eventList[NUMBER.weekEventIndex] += 1;
     if (
       date % NUMBER.dateLength === NUMBER.specialRemainder ||
       date === NUMBER.christmas
     )
-      this.#eventList[3] += 1;
+      this.#eventList[NUMBER.specialEventIndex] += 1;
     this.getEvent();
   }
 

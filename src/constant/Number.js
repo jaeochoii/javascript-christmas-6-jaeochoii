@@ -18,6 +18,12 @@ const NUMBER = Object.freeze({
   specialRemainder: 3,
   christmas: 25,
   champagne: 25_000,
+  benefitListLength: 5,
+  dDayEventIndex: 0,
+  weekendEventIndex: 1,
+  weekEventIndex: 2,
+  specialEventIndex: 3,
+  giveawayEventIndex: 4,
 });
 
 export default NUMBER;
