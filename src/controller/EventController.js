@@ -52,11 +52,11 @@ class EventController {
     const benefit = this.createBenefitObject({ menus, event, totalAmount });
     const benefitList = benefit.getBenefitList();
     const benefitAmount = benefit.getBenefitAmount();
-    const costAfterDiscount = totalAmount.getTotalAmount() - benefitAmount;
+    const discountCost = totalAmount.getTotalAmount() - benefitAmount;
 
     OutputView.printBenefitList(benefitList);
     OutputView.printBenefitAccount(benefitAmount);
-    OutputView.printAfterDiscount(costAfterDiscount);
+    OutputView.printAfterDiscount(discountCost);
     OutputView.printBadge(benefitAmount);
   }
 
