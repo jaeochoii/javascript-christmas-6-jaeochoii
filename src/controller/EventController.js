@@ -1,4 +1,4 @@
-import Date from "../domain/Date.js";
+import VisitDate from "../domain/VisitDate.js";
 import Event from "../domain/Event.js";
 import Order from "../domain/Order.js";
 import TotalAmount from "../domain/TotalAmount.js";
@@ -12,7 +12,7 @@ class EventController {
 
   async playEvent() {
     OutputView.printIntro();
-    const date = new Date(await this.inputVisitDate()).getDate();
+    const date = new VisitDate(await this.inputVisitDate()).getVisitDate();
     const event = new Event(date);
     const order = new Order(await this.inputOrder()).getOrder();
     const totalAmount = new TotalAmount(order);

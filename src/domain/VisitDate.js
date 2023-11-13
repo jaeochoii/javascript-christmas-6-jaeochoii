@@ -1,6 +1,6 @@
 import NUMBER from "../constant/Number.js";
 
-class Date {
+class VisitDate {
   #date;
 
   constructor(date) {
@@ -15,9 +15,9 @@ class Date {
       return true;
   }
 
-  getDate() {
+  getVisitDate() {
     return this.#date;
   }
 }
 
-export default Date;
+export default VisitDate;

@@ -1,4 +1,4 @@
-import Date from "./Date.js";
+import VisitDate from "./VisitDate.js";
 import NUMBER from "../constant/Number.js";
 
 class Event {
@@ -6,16 +6,16 @@ class Event {
   #eventList;
 
   constructor(date) {
-    this.#date = new Date(date);
+    this.#date = new VisitDate(date);
     this.#eventList = new Array(NUMBER.benefitListLength).fill(0);
     this.#dDayHandler();
   }
 
   #dDayHandler() {
-    this.#eventList[NUMBER.dDayIndex] += this.#date.getDate();
+    this.#eventList[NUMBER.dDayIndex] += this.#date.getVisitDate();
     this.#date.isDateWeekend()
       ? this.#weekendHandler()
-      : this.#weekHandler(this.#date.getDate());
+      : this.#weekHandler(this.#date.getVisitDate());
   }
 
   #weekendHandler() {
