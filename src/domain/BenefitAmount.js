@@ -3,67 +3,65 @@ import NUMBER from "../constant/Number.js";
 
 class BenefitAmount {
   #benefitList;
-  #benefitAmount;
   #totalAmount;
 
-  // menus: 객체
-  constructor(menus, benefitList, totalAmount) {
-    this.#benefitList = benefitList;
-    this.#totalAmount = totalAmount;
-    this.#benefitAmount = [];
-    this.#calculateGiveaway(totalAmount);
+  /**
+   * @param Object props { menus: 메뉴 객체, benefitList: 이벤트 배열, totalAmount: 구매 총액 }
+   */
+  constructor(props) {
+    this.#benefitList = props.benefitList;
+    this.#totalAmount = props.totalAmount;
+    this.#calculateGiveaway(props.totalAmount);
     this.#calculateDDayAmount();
-    this.#benefitList[NUMBER.weekendEventIndex] === 1
-      ? this.#calculateWeekendAmount(menus)
-      : this.#calculateWeekAmount(menus);
+    this.#benefitList[NUMBER.weekendIndex]
+      ? this.#calculateWeekendAmount(props.menus)
+      : this.#calculateWeekAmount(props.menus);
   }
 
   #calculateGiveaway(cost) {
     cost >= NUMBER.giveawayStandard
-      ? (this.#benefitAmount[NUMBER.giveawayEventIndex] = NUMBER.champagne)
-      : (this.#benefitAmount[NUMBER.giveawayEventIndex] = 0);
+      ? (this.#benefitList[NUMBER.giveawayIndex] = NUMBER.champagne)
+      : (this.#benefitList[NUMBER.giveawayIndex] = 0);
   }
 
   #calculateDDayAmount() {
-    this.#benefitList[NUMBER.dDayEventIndex] <= NUMBER.christmas
-      ? (this.#benefitAmount[NUMBER.dDayEventIndex] =
+    this.#benefitList[NUMBER.dDayIndex] <= NUMBER.christmas
+      ? (this.#benefitList[NUMBER.dDayIndex] =
           NUMBER.dDayDefaultDiscount +
-          (this.#benefitList[NUMBER.dDayEventIndex] - 1) *
-            NUMBER.dDayPlusDiscount)
-      : (this.#benefitAmount[NUMBER.dDayEventIndex] = 0);
+          (this.#benefitList[NUMBER.dDayIndex] - 1) * NUMBER.dDayPlusDiscount)
+      : (this.#benefitList[NUMBER.dDayIndex] = 0);
   }
 
   #calculateWeekendAmount(menus) {
-    this.#benefitAmount[NUMBER.weekEventIndex] = 0;
-    this.#benefitAmount[NUMBER.specialEventIndex] = 0;
+    this.#benefitList[NUMBER.weekIndex] = 0;
+    this.#benefitList[NUMBER.specialIndex] = 0;
     const benefitAmount = Object.keys(menus).reduce((acc, order) => {
       if (MENU.main.some((menu) => menu.name === order)) {
         return acc + menus[order];
       }
       return acc;
     }, 0);
-    this.#benefitAmount[1] = NUMBER.dateDiscount * benefitAmount;
+    this.#benefitList[NUMBER.weekendIndex] =
+      NUMBER.dateDiscount * benefitAmount;
   }
 
   #calculateWeekAmount(menus) {
-    this.#benefitAmount[NUMBER.weekendEventIndex] = 0;
+    this.#benefitList[NUMBER.weekendIndex] = 0;
     const benefitAmount = Object.keys(menus).reduce((acc, order) => {
       if (MENU.dessert.some((menu) => menu.name === order)) {
         return acc + menus[order];
       }
       return acc;
     }, 0);
-    this.#benefitAmount[NUMBER.weekEventIndex] =
-      NUMBER.dateDiscount * benefitAmount;
-    this.#benefitList[NUMBER.specialEventIndex] === 0
-      ? (this.#benefitAmount[NUMBER.specialEventIndex] = 0)
-      : (this.#benefitAmount[NUMBER.specialEventIndex] =
-          NUMBER.specialDiscount);
+    this.#benefitList[NUMBER.weekIndex] = NUMBER.dateDiscount * benefitAmount;
+    this.#benefitList[NUMBER.specialIndex] === 0
+      ? (this.#benefitList[NUMBER.specialIndex] = 0)
+      : (this.#benefitList[NUMBER.specialIndex] = NUMBER.specialDiscount);
   }
 
   getBenefitList() {
-    if (this.#totalAmount < NUMBER.benefitStandard) this.#benefitAmount.fill(0);
-    return this.#benefitAmount;
+    if (this.#totalAmount < NUMBER.benefitStandard) this.#benefitList.fill(0);
+    return this.#benefitList;
   }
 
   getBenefitAmount() {

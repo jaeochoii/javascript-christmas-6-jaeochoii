@@ -74,11 +74,11 @@ class EventController {
   }
 
   displayBenefitList() {
-    this.#benefit = new BenefitAmount(
-      this.#menus,
-      this.#event.getEvent(),
-      this.#totalAmount
-    );
+    this.#benefit = new BenefitAmount({
+      menus: this.#menus,
+      benefitList: this.#event.getEvent(),
+      totalAmount: this.#totalAmount,
+    });
     OutputView.printBenefitList(this.#benefit.getBenefitList());
     this.displayBenefitAmount();
   }
