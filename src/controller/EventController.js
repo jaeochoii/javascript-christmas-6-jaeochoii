@@ -11,92 +11,53 @@ class EventController {
   #date;
   #event;
   #menus;
-  #totalAmount;
-  #benefit;
 
   constructor() {}
 
   async playEvent() {
     OutputView.printIntro();
-    await this.handleDate();
-  }
-
-  async handleDate() {
-    try {
-      await this.inputVisitDate();
-    } catch (error) {
-      Console.print(error.message);
-      await this.handleDate();
-    }
+    this.#date = new Date(await this.inputVisitDate()).getDate();
+    this.#event = new Event(this.#date);
+    this.#menus = new Menus(await this.inputMenus()).getMenus();
+    this.displayPreview();
   }
 
   async inputVisitDate() {
-    const date = await InputView.readDate();
-    this.#date = new Date(date).getDate();
-    this.#event = new Event(this.#date);
-    await this.handleMenus();
-  }
-
-  async handleMenus() {
-    try {
-      await this.inputMenus();
-    } catch (error) {
-      Console.print(error.message);
-      await this.handleMenus();
+    while (true) {
+      try {
+        return await InputView.readDate();
+      } catch (error) {
+        Console.print(error.message);
+      }
     }
   }
 
   async inputMenus() {
-    const menus = await InputView.readMenus();
-    this.#menus = new Menus(menus).getMenus();
-    this.displayPreview();
+    while (true) {
+      try {
+        return await InputView.readMenus();
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
   }
 
   displayPreview() {
     OutputView.printPreview(this.#date);
-    this.displayOrderedMenus();
-  }
-
-  displayOrderedMenus() {
     OutputView.printOrderMenus(this.#menus);
-    this.displayBeforeDiscount();
-  }
-
-  displayBeforeDiscount() {
-    this.#totalAmount = new TotalAmount(this.#menus);
-    OutputView.printBeforeDiscount(this.#totalAmount.getTotalAmount());
-    this.displayGiveawayMenu();
-  }
-
-  displayGiveawayMenu() {
-    OutputView.printGiveawayMenus(this.#totalAmount.getGiveawayCount());
-    this.displayBenefitList();
-  }
-
-  displayBenefitList() {
-    this.#benefit = new BenefitAmount({
+    const totalAmount = new TotalAmount(this.#menus);
+    OutputView.printBeforeDiscount(totalAmount.getTotalAmount());
+    OutputView.printGiveawayMenus(totalAmount.getGiveawayCount());
+    const benefit = new BenefitAmount({
       menus: this.#menus,
       benefitList: this.#event.getEvent(),
-      totalAmount: this.#totalAmount,
+      totalAmount: totalAmount,
     });
-    OutputView.printBenefitList(this.#benefit.getBenefitList());
-    this.displayBenefitAmount();
-  }
-
-  displayBenefitAmount() {
-    OutputView.printBenefitAccount(this.#benefit.getBenefitAmount());
-    this.displayAfterDiscount();
-  }
-
-  displayAfterDiscount() {
-    const cost =
-      this.#totalAmount.getTotalAmount() - this.#benefit.getBenefitAmount();
+    OutputView.printBenefitList(benefit.getBenefitList());
+    OutputView.printBenefitAccount(benefit.getBenefitAmount());
+    const cost = totalAmount.getTotalAmount() - benefit.getBenefitAmount();
     OutputView.printAfterDiscount(cost);
-    this.displayEventBadge();
-  }
-
-  displayEventBadge() {
-    OutputView.printBadge(this.#benefit.getBenefitAmount());
+    OutputView.printBadge(benefit.getBenefitAmount());
   }
 }
 
