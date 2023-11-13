@@ -10,7 +10,7 @@ const InputView = {
     return input;
   },
 
-  async readMenus() {
+  async readOrder() {
     const input = await Console.readLineAsync(MESSAGE.menu);
     Validator.inputOrder(input);
 

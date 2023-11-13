@@ -14,8 +14,8 @@ class BenefitAmount {
     this.#calculateGiveaway(props.totalAmount);
     this.#calculateDDayAmount();
     this.#benefitList[NUMBER.weekendIndex]
-      ? this.#calculateWeekendAmount(props.menus)
-      : this.#calculateWeekAmount(props.menus);
+      ? this.#calculateWeekendAmount(props.order)
+      : this.#calculateWeekAmount(props.order);
   }
 
   #calculateGiveaway(cost) {
@@ -32,24 +32,24 @@ class BenefitAmount {
       : (this.#benefitList[NUMBER.dDayIndex] = 0);
   }
 
-  #calculateWeekendAmount(menus) {
+  #calculateWeekendAmount(order) {
     this.#benefitList[NUMBER.weekIndex] = 0;
     this.#benefitList[NUMBER.specialIndex] = 0;
 
-    const benefitAmount = Object.keys(menus)
+    const benefitAmount = Object.keys(order)
       .filter((ordered) => MENU.main.some((menu) => menu.name === ordered))
-      .reduce((acc, ordered) => acc + menus[ordered], 0);
+      .reduce((acc, ordered) => acc + order[ordered], 0);
 
     this.#benefitList[NUMBER.weekendIndex] =
       NUMBER.dateDiscount * benefitAmount;
   }
 
-  #calculateWeekAmount(menus) {
+  #calculateWeekAmount(order) {
     this.#benefitList[NUMBER.weekendIndex] = 0;
 
-    const benefitAmount = Object.keys(menus)
+    const benefitAmount = Object.keys(order)
       .filter((ordered) => MENU.dessert.some((menu) => menu.name === ordered))
-      .reduce((acc, ordered) => acc + menus[ordered], 0);
+      .reduce((acc, ordered) => acc + order[ordered], 0);
 
     this.#benefitList[NUMBER.weekIndex] = NUMBER.dateDiscount * benefitAmount;
     this.#benefitList[NUMBER.specialIndex] =
