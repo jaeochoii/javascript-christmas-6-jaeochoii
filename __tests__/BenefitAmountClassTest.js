@@ -6,10 +6,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [15, 1, 0, 0, 0];
     const totalAmount = 123000;
     const answer = [2400, 4046, 0, 0, 25000];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 환산 되는지 확인(평일, 특별할인 X)", () => {
@@ -17,10 +20,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [13, 0, 1, 0, 0];
     const totalAmount = 123000;
     const answer = [2200, 0, 2023, 0, 25000];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 환산 되는지 확인(평일, 특별할인 O)", () => {
@@ -28,10 +34,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [13, 0, 1, 1, 0];
     const totalAmount = 123000;
     const answer = [2200, 0, 2023, 1000, 25000];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 환산 되는지 확인(12만원 미만 결제)", () => {
@@ -39,10 +48,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [13, 0, 1, 1, 0];
     const totalAmount = 23000;
     const answer = [2200, 0, 2023, 1000, 0];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 환산 되는지 확인(날짜 25일 이후) ", () => {
@@ -50,10 +62,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [27, 0, 1, 1, 0];
     const totalAmount = 123000;
     const answer = [0, 0, 2023, 1000, 25000];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 총 금액이 1만원이 넘지 않는 경우를 확인", () => {
@@ -61,10 +76,13 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [13, 0, 1, 1, 0];
     const totalAmount = 3000;
     const answer = [0, 0, 0, 0, 0];
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitList()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
   test("Event 클래스로부터 얻은 혜택 내역을 기반으로 총 혜택 금액 확인", () => {
@@ -72,9 +90,12 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     const benefitList = [13, 0, 1, 1, 0];
     const totalAmount = 123000;
     const answer = 30223;
+    const props = {
+      menus: menus,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
 
-    expect(
-      new BenefitAmount(menus, benefitList, totalAmount).getBenefitAmount()
-    ).toEqual(answer);
+    expect(new BenefitAmount(props).getBenefitAmount()).toEqual(answer);
   });
 });
