@@ -62,8 +62,7 @@ class BenefitAmount {
   }
 
   getBenefitList() {
-    if (this.#totalAmount < NUMBER.benefitStandard)
-      return new Array(NUMBER.benefitListLength).fill(0);
+    if (this.#totalAmount < NUMBER.benefitStandard) this.#benefitAmount.fill(0);
     return this.#benefitAmount;
   }
 
