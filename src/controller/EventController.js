@@ -5,7 +5,6 @@ import TotalAmount from "../domain/TotalAmount.js";
 import BenefitAmount from "../domain/BenefitAmount.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
-import NUMBER from "../constant/Number.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class EventController {
@@ -64,14 +63,13 @@ class EventController {
   }
 
   displayBeforeDiscount() {
-    this.#totalAmount = new TotalAmount(this.#menus).getTotalAmount();
-    OutputView.printBeforeDiscount(this.#totalAmount);
+    this.#totalAmount = new TotalAmount(this.#menus);
+    OutputView.printBeforeDiscount(this.#totalAmount.getTotalAmount());
     this.displayGiveawayMenu();
   }
 
   displayGiveawayMenu() {
-    const count = Math.floor(this.#totalAmount / NUMBER.champagne);
-    OutputView.printGiveawayMenus(count);
+    OutputView.printGiveawayMenus(this.#totalAmount.getGiveawayCount());
     this.displayBenefitList();
   }
 

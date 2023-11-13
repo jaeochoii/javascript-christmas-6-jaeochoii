@@ -1,4 +1,5 @@
 import MENU from "../constant/Menu.js";
+import NUMBER from "../constant/Number.js";
 
 class TotalAmount {
   #menu;
@@ -20,6 +21,10 @@ class TotalAmount {
 
   getTotalAmount() {
     return this.#totalAmount;
+  }
+
+  getGiveawayCount() {
+    return Math.floor(this.#totalAmount / NUMBER.champagne);
   }
 }
 
