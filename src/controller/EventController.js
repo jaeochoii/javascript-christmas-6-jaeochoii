@@ -89,7 +89,8 @@ class EventController {
   }
 
   displayAfterDiscount() {
-    const cost = this.#totalAmount - this.#benefit.getBenefitAmount();
+    const cost =
+      this.#totalAmount.getTotalAmount() - this.#benefit.getBenefitAmount();
     OutputView.printAfterDiscount(cost);
     this.displayEventBadge();
   }
