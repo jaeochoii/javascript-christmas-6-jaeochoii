@@ -1,14 +1,14 @@
-import EventController from "./controller/EventController.js";
+import PromotionController from "./controller/PromotionController.js";
 
 class App {
-  #event;
+  #promotion;
 
   constructor() {
-    this.#event = new EventController();
+    this.#promotion = new PromotionController();
   }
 
   async run() {
-    await this.#event.playEvent();
+    await this.#promotion.playPromotion();
   }
 }
 

@@ -7,10 +7,10 @@ import OutputView from "../view/OutputView.js";
 import { Console } from "@woowacourse/mission-utils";
 import NUMBER from "../constant/Number.js";
 
-class EventController {
+class PromotionController {
   constructor() {}
 
-  async playEvent() {
+  async playPromotion() {
     OutputView.printIntro();
     const event = new Event(await this.#inputVisitDate());
     const date = event.getEvent()[NUMBER.dDayIndex];
@@ -69,4 +69,4 @@ class EventController {
   }
 }
 
-export default EventController;
+export default PromotionController;
