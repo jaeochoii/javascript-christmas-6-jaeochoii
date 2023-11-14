@@ -23,7 +23,7 @@ class VisitDate {
       return true;
   }
 
-  getVisitDate() {
+  processVisitDate() {
     return this.#date;
   }
 }

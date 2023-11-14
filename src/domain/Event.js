@@ -12,10 +12,8 @@ class Event {
   }
 
   #dDayHandler() {
-    this.#eventList[NUMBER.dDayIndex] += this.#date.getVisitDate();
-    this.#date.isDateWeekend()
-      ? this.#weekendHandler()
-      : this.#weekHandler(this.#date.getVisitDate());
+    this.#eventList[NUMBER.dDayIndex] += this.#date.processVisitDate();
+    this.#date.isDateWeekend() ? this.#weekendHandler() : this.#weekHandler();
   }
 
   #weekendHandler() {

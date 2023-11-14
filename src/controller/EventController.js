@@ -1,4 +1,3 @@
-import VisitDate from "../domain/VisitDate.js";
 import Event from "../domain/Event.js";
 import Order from "../domain/Order.js";
 import TotalAmount from "../domain/TotalAmount.js";
@@ -6,14 +5,15 @@ import BenefitAmount from "../domain/BenefitAmount.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import { Console } from "@woowacourse/mission-utils";
+import NUMBER from "../constant/Number.js";
 
 class EventController {
   constructor() {}
 
   async playEvent() {
     OutputView.printIntro();
-    const date = new VisitDate(await this.#inputVisitDate()).getVisitDate();
-    const event = new Event(date);
+    const event = new Event(await this.#inputVisitDate());
+    const date = event.getEvent()[NUMBER.dDayIndex];
     const order = new Order(await this.#inputOrder()).getOrder();
     const totalAmount = new TotalAmount(order);
     OutputView.printPreview(date);
