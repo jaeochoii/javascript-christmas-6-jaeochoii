@@ -12,16 +12,16 @@ class EventController {
 
   async playEvent() {
     OutputView.printIntro();
-    const date = new VisitDate(await this.inputVisitDate()).getVisitDate();
+    const date = new VisitDate(await this.#inputVisitDate()).getVisitDate();
     const event = new Event(date);
-    const order = new Order(await this.inputOrder()).getOrder();
+    const order = new Order(await this.#inputOrder()).getOrder();
     const totalAmount = new TotalAmount(order);
     OutputView.printPreview(date);
-    this.displayOrderedMenus({ date, order, totalAmount });
-    this.displayBenefit({ order, event, totalAmount });
+    this.#displayOrderedMenus({ date, order, totalAmount });
+    this.#displayBenefit({ order, event, totalAmount });
   }
 
-  async inputVisitDate() {
+  async #inputVisitDate() {
     while (true) {
       try {
         return await InputView.readDate();
@@ -31,7 +31,7 @@ class EventController {
     }
   }
 
-  async inputOrder() {
+  async #inputOrder() {
     while (true) {
       try {
         return await InputView.readOrder();
@@ -41,15 +41,15 @@ class EventController {
     }
   }
 
-  displayOrderedMenus({ date, order, totalAmount }) {
+  #displayOrderedMenus({ date, order, totalAmount }) {
     OutputView.printPreview(date);
     OutputView.printOrderMenus(order);
     OutputView.printBeforeDiscount(totalAmount.getTotalAmount());
     OutputView.printGiveawayMenus(totalAmount.getGiveawayCount());
   }
 
-  displayBenefit({ order, event, totalAmount }) {
-    const benefit = this.createBenefitObject({ order, event, totalAmount });
+  #displayBenefit({ order, event, totalAmount }) {
+    const benefit = this.#createBenefitObject({ order, event, totalAmount });
     const benefitList = benefit.getBenefitList();
     const benefitAmount = benefit.getBenefitAmount();
     const discountCost = totalAmount.getTotalAmount() - benefitAmount;
@@ -60,7 +60,7 @@ class EventController {
     OutputView.printBadge(benefitAmount);
   }
 
-  createBenefitObject({ order, event, totalAmount }) {
+  #createBenefitObject({ order, event, totalAmount }) {
     return new BenefitAmount({
       order,
       benefitList: event.getEvent(),
