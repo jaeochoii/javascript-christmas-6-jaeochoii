@@ -15,6 +15,14 @@ class VisitDate {
       return true;
   }
 
+  isDateSpecial() {
+    if (
+      this.#date % NUMBER.dateLength === NUMBER.specialRemainder ||
+      this.#date === NUMBER.christmas
+    )
+      return true;
+  }
+
   getVisitDate() {
     return this.#date;
   }

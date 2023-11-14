@@ -23,14 +23,9 @@ class Event {
     this.getEvent();
   }
 
-  #weekHandler(date) {
+  #weekHandler() {
     this.#eventList[NUMBER.weekIndex] += 1;
-    if (
-      date % NUMBER.dateLength === NUMBER.specialRemainder ||
-      date === NUMBER.christmas
-    )
-      this.#eventList[NUMBER.specialIndex] += 1;
-    this.getEvent();
+    if (this.#date.isDateSpecial()) this.#eventList[NUMBER.specialIndex] += 1;
   }
 
   getEvent() {
