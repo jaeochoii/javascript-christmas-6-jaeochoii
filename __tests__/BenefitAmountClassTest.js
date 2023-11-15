@@ -15,6 +15,20 @@ describe("BenefitAmount 클래스 단위 기능 테스트", () => {
     expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
   });
 
+  test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 주말 이벤트에 0원이 환산 되는지 확인(주말)", () => {
+    const order = { 초코케이크: 1, 제로콜라: 1 };
+    const benefitList = [15, 1, 0, 0, 0];
+    const totalAmount = 18000;
+    const answer = [2400, 0, 0, 0, 0];
+    const props = {
+      order: order,
+      benefitList: benefitList,
+      totalAmount: totalAmount,
+    };
+
+    expect(new BenefitAmount(props).getBenefitList()).toEqual(answer);
+  });
+
   test("Event 클래스로부터 얻은 혜택 내역을 기반, 금액으로 환산 되는지 확인(평일, 특별할인 X)", () => {
     const order = { 티본스테이크: 2, 초코케이크: 1, 제로콜라: 1 };
     const benefitList = [13, 0, 1, 0, 0];
