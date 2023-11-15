@@ -1,4 +1,4 @@
-import MESSAGE from "../constant/Message.js";
+import BADGE from "../constant/Badge.js";
 import NUMBER from "../constant/Number.js";
 
 const RangeFilter = {
@@ -9,10 +9,10 @@ const RangeFilter = {
   badge(cost) {
     if (cost < NUMBER.starBenefit) return 0;
     if (cost >= NUMBER.starBenefit && cost < NUMBER.treeBenefit)
-      return MESSAGE.starBadge;
+      return BADGE.star;
     if (cost >= NUMBER.treeBenefit && cost < NUMBER.santaBenefit)
-      return MESSAGE.treeBadge;
-    if (cost >= NUMBER.santaBenefit) return MESSAGE.santaBadge;
+      return BADGE.tree;
+    if (cost >= NUMBER.santaBenefit) return BADGE.santa;
   },
 };
 

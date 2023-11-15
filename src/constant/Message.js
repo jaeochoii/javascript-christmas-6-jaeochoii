@@ -15,9 +15,6 @@ const MESSAGE = Object.freeze({
   previewPrefix: "12월",
   previewSuffix: "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n",
 
-  starBadge: "별",
-  treeBadge: "트리",
-  santaBadge: "산타",
   champagne: "샴페인",
 
   line: "\n",
