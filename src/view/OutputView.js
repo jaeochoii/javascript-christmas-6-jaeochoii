@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import MESSAGE from "../constant/Message.js";
 import BENEFIT_RESULT from "../constant/BenefitResult.js";
 import RangeFilter from "../utils/RangeFilter.js";
+import UNIT from "../constant/Unit.js";
 
 const OutputView = {
   printIntro() {
@@ -15,14 +16,14 @@ const OutputView = {
   printOrderMenus(menus) {
     Console.print(MESSAGE.order);
     for (const [menu, count] of Object.entries(menus)) {
-      Console.print(`${menu} ${count}${MESSAGE.countSuffix}`);
+      Console.print(`${menu} ${count}${UNIT.countSuffix}`);
     }
     Console.print(MESSAGE.line);
   },
 
   printBeforeDiscount(cost) {
     Console.print(MESSAGE.beforeDiscount);
-    Console.print(`${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(`${this.formatCurrency(cost)}${UNIT.priceSuffix}`);
     Console.print(MESSAGE.line);
   },
 
@@ -30,7 +31,7 @@ const OutputView = {
     Console.print(MESSAGE.giveawayMenu);
     count === 0
       ? Console.print(`${MESSAGE.none}`)
-      : Console.print(`${MESSAGE.champagne} ${count}${MESSAGE.countSuffix}`);
+      : Console.print(`${MESSAGE.champagne} ${count}${UNIT.countSuffix}`);
     Console.print(MESSAGE.line);
   },
 
@@ -45,14 +46,14 @@ const OutputView = {
   printBenefitAccount(cost) {
     Console.print(MESSAGE.benefitAccount);
     Console.print(
-      `${MESSAGE.benefit}${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`
+      `${UNIT.minus}${this.formatCurrency(cost)}${UNIT.priceSuffix}`
     );
     Console.print(MESSAGE.line);
   },
 
   printAfterDiscount(cost) {
     Console.print(MESSAGE.afterDiscount);
-    Console.print(`${this.formatCurrency(cost)}${MESSAGE.priceSuffix}`);
+    Console.print(`${this.formatCurrency(cost)}${UNIT.priceSuffix}`);
     Console.print(MESSAGE.line);
   },
 
@@ -71,9 +72,9 @@ const OutputView = {
     BENEFIT_RESULT.forEach((benefit, index) => {
       if (discountList[index] !== 0) {
         Console.print(
-          `${benefit} ${MESSAGE.benefit}${this.formatCurrency(
-            discountList[index]
-          )}${MESSAGE.priceSuffix}`
+          `${benefit} ${UNIT.minus}${this.formatCurrency(discountList[index])}${
+            UNIT.priceSuffix
+          }`
         );
       }
     });

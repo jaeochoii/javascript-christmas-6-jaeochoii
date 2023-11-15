@@ -10,6 +10,7 @@ const MESSAGE = Object.freeze({
   benefitList: "<혜택 내역>",
   benefitAccount: "<총혜택 금액>",
   eventBadge: "<12월 이벤트 배지>",
+  none: "없음",
 
   previewPrefix: "12월",
   previewSuffix: "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n",
@@ -19,10 +20,6 @@ const MESSAGE = Object.freeze({
   santaBadge: "산타",
   champagne: "샴페인",
 
-  countSuffix: "개",
-  priceSuffix: "원",
-  benefit: "-",
-  none: "없음",
   line: "\n",
 });
 
