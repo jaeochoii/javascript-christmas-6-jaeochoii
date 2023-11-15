@@ -12,7 +12,6 @@ const OutputView = {
     Console.print(`${MESSAGE.previewPrefix} ${date}${MESSAGE.previewSuffix}`);
   },
 
-  // menus : 입력받은 메뉴와 개수 객체
   printOrderMenus(menus) {
     Console.print(MESSAGE.order);
     for (const [menu, count] of Object.entries(menus)) {

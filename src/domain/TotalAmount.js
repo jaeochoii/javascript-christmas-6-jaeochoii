@@ -10,7 +10,6 @@ class TotalAmount {
     this.#calculateAmount(menus);
   }
 
-  // menus : 객체
   #calculateAmount(menus) {
     this.#menu = Object.values(MENU).flat();
     this.#totalAmount = Object.keys(menus).reduce((acc, menu) => {

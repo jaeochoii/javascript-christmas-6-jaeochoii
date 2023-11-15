@@ -19,7 +19,6 @@ const Validator = {
       throw new Error(ERROR.order);
   },
 
-  // menus : 입력받은 메뉴와 개수 객체
   orderMenus(menus) {
     const drinks = MENU.drink.map((drink) => drink.name);
     if (Object.keys(menus).every((menu) => drinks.includes(menu)))
